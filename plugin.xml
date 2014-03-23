@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<!--**********************************************************************
+Copyright (c) 2010 Andy Jefferson and others. All rights reserved.
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+Contributors:
+    ...
+**********************************************************************-->
+<plugin id="org.datanucleus.jdk8" name="DataNucleus JDK8 plugin" 
+    provider-name="DataNucleus">
+    
+        <!-- JAVA TYPES -->
+        <extension point="org.datanucleus.java_type">
+            <java-type name="java.time.LocalDate" dfg="true" embedded="true" 
+                converter-name="dn.localdate-string"/>
+            <java-type name="java.time.LocalDateTime" dfg="true" embedded="true" 
+                converter-name="dn.localdatetime-string"/>
+            <java-type name="java.time.LocalTime" dfg="true" embedded="true" 
+                converter-name="dn.localtime-string"/>
+        </extension>    
+        
+        <!-- TYPE CONVERTERS -->
+        <extension point="org.datanucleus.type_converter">    
+            <type-converter name="dn.localdate-string" member-type="java.time.LocalDate" datastore-type="java.lang.String"
+                converter-class="org.datanucleus.store.types.converters.LocalDateStringConverter"/>
+            <type-converter name="dn.localtime-string" member-type="java.time.LocalTime" datastore-type="java.lang.String"
+                converter-class="org.datanucleus.store.types.converters.LocalTimeStringConverter"/>
+            <type-converter name="dn.localtime-long" member-type="java.time.LocalTime" datastore-type="java.lang.Long"
+                converter-class="org.datanucleus.store.types.converters.LocalTimeLongConverter"/>
+            <type-converter name="dn.localdatetime-string" member-type="java.time.LocalDateTime" datastore-type="java.lang.String"
+                converter-class="org.datanucleus.store.types.converters.LocalDateTimeStringConverter"/>
+        </extension>
+            
+        <!-- RDBMS : JAVA TYPES MAPPING -->
+        <extension point="org.datanucleus.store.rdbms.java_mapping">            
+            <mapping java-type="java.time.LocalDate"
+                mapping-class="org.datanucleus.store.rdbms.mapping.java.LocalDateMapping"/>
+            <mapping java-type="java.time.LocalDateTime"
+                mapping-class="org.datanucleus.store.rdbms.mapping.java.LocalDateTimeMapping"/>
+            <mapping java-type="java.time.LocalTime"
+                mapping-class="org.datanucleus.store.rdbms.mapping.java.LocalTimeMapping"/>
+        </extension>        
+            
+</plugin>
